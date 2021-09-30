@@ -46,7 +46,7 @@ function runGame(gameType) {
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1,num2);
     } else if (gameType === "division") {
-        displayDivideQuestion(num1,num2);
+        displayDivideQuestion(num1*num2,num2); //to ensure answer is always a whole number
     }
     
     else {
