@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded",function() {
     {
         button.addEventListener("click", function(){
             if(this.getAttribute("data-type")==="submit") {
-                alert("You clicked submit");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 //alert(`you clicked ${gameType}`); //Tests whether events are being listened too with alerts
@@ -38,13 +38,40 @@ function runGame(gameType) {
 }
 
 
-
+/**
+ * Checking if the answer is correct when the function runs
+ */
 function checkAnswer() {
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calculatedAnswer[0];
+    if (isCorrect) {
+        alert('Well done, correct!!!! :-)')
+    } else {
+        alert(`You answered ${userAnswer} which is not correct, it was ${calculatedAnswer[0]}.`)
+    }
+
+    runGame(calculatedAnswer[1]);
+
 
 }
 
+/**
+ * Gets the operand and the operator from the DOM
+ * To return the correct answers
+ */
 function calculateCorrectAnswer() {
+    //ParseInt makes sure it is a number, not a string
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
+    let operator = document.getElementById("operator").innerText;
 
+    if(operator === "+"){
+        return[operand1 + operand2, "addition"];
+    } else {
+        alert(`The operator ${operator} does not exist`);
+        throw `The operator ${operator} does not exist.Aborting!`;
+    }
 }
 
 function incrementScore() {
